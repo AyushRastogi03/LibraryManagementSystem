@@ -3,6 +3,7 @@ package com.example.project.Library_Management_System.requests;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.example.project.Library_Management_System.models.Student;
 
@@ -11,7 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import com.example.project.Library_Management_System.security.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -32,13 +33,22 @@ public class StudentCreateRequest {
 	@Email
 	private String email ;
 	
+    @NotBlank
+    @Size(min = 8, max = 14)
+    private String password;
 	
 	public Student to() {
 		return Student.builder().name(name)
 		.age(age)
 		.email(email)
 		.phoneNumber(phoneNumber)
-		.build();
+		.user(
+                User.builder()
+                        .username(this.email)
+                        .password(this.password)
+                        .build()
+        )
+        .build();
 	}
 	
 }

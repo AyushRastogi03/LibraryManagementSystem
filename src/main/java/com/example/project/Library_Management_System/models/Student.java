@@ -8,11 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.project.Library_Management_System.security.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -47,6 +50,11 @@ public class Student {
 	@JsonIgnoreProperties(value= {"student" , "transactionList"})
 	private List<Book> bookList;
 	  
+	 @OneToOne
+	 @JoinColumn
+	 @JsonIgnoreProperties("student")
+	 private User user;
+	
 	 @OneToMany(mappedBy = "student")
 	 @JsonIgnoreProperties(value = {"student", "book" })
     private List<Transaction> transactionList;

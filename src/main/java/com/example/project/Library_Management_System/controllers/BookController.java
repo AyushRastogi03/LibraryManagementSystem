@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.Library_Management_System.models.Book;
-import com.example.project.Library_Management_System.models.Student;
+import com.example.project.Library_Management_System.models.Genre;
 import com.example.project.Library_Management_System.requests.BookCreateRequest;
 import com.example.project.Library_Management_System.requests.BookFilterKey;
+import com.example.project.Library_Management_System.responses.BookResponse;
+import com.example.project.Library_Management_System.responses.BookWithoutStudentResponse;
 import com.example.project.Library_Management_System.services.BookService;
-import com.example.project.Library_Management_System.models.*;
 @RestController
-public class BookController {
+public class BookController { 
+	// post, put, delete --> ADMIN
+    // get --> STUDENT, ADMIN
       
 	    @Autowired
 	    BookService bookService ;
@@ -52,6 +55,16 @@ public class BookController {
 	                throw new Exception("Wrong filter type passed");
 	        }
 	    }
+		
+		  @GetMapping("/bookByStudent1")
+		    public List<BookResponse> getBooksByStudent1(@RequestParam("name") String name) {
+		        return bookService.getBookByStudentName(name);
+		    }
+
+		    @GetMapping("/bookByStudent2")
+		    public List<BookWithoutStudentResponse> getBooks(@RequestParam("name") String name) {
+		        return bookService.getBookByStudentNameWithoutStudent(name);
+		    }
 	
 
 }

@@ -14,7 +14,9 @@ import com.example.project.Library_Management_System.models.Genre;
 import com.example.project.Library_Management_System.models.Student;
 import com.example.project.Library_Management_System.repositories.BookRepository;
 import com.example.project.Library_Management_System.repositories.StudentRepository;
-
+import com.example.project.Library_Management_System.responses.BookResponse;
+import com.example.project.Library_Management_System.responses.BookWithoutStudentResponse;
+import java.util.stream.Collectors;
 @Service
 public class BookService {  
 	@Autowired
@@ -59,7 +61,24 @@ public class BookService {
 	        }
 
 	        return new ArrayList<>();
+	    }   
+	    
+	    public List<BookResponse> getBookByStudentName(String name){
+	        List<Book> bookList = Arrays.asList(bookRepository.findByStudentName(name));
+
+	        return bookList.stream()
+	                .map(BookResponse::to)
+	                .collect(Collectors.toList());
 	    }
+
+	    public List<BookWithoutStudentResponse> getBookByStudentNameWithoutStudent(String name){
+	       List<Book> bookList = Arrays.asList(bookRepository.findByStudentName(name));
+	        return bookList.stream()
+	                .map(BookWithoutStudentResponse::to)
+	                .collect(Collectors.toList());
+	        
+	    }
+	    
 
 //	    public List<BookResponse> getBookByStudentName(String name){
 //	        List<Book> bookList = Arrays.asList(bookRepository.findByStudentName(name));
