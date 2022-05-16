@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserConfig extends WebSecurityConfigurerAdapter {
 
     // STUDENT
-    // ADMIN | LIBRARIAN
+    // ADMIN or LIBRARIAN
 
     @Value("${user.authority.student}")
     private String studentAuthority;

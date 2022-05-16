@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class StudentController {
 	public void createStudent(@Valid @RequestBody StudentCreateRequest studentcreatereq) {
 		studentService.createStudent(studentcreatereq.to());
 	}
+	
 	
 	//admin
 	@GetMapping("/student/all")
